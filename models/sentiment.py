@@ -9,7 +9,7 @@ class Sentiment(base):
     __tablename__ = "sentiments"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = (Integer)
+    user_id = Column(Integer)
     user_text_input = Column(String)
     sentiment_label = Column(String)
     confidence_score = Column(Float)
