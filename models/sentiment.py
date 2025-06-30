@@ -9,8 +9,8 @@ class Sentiment(base):
     __tablename__ = "sentiments"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer)
-    user_text_input = Column(String)
-    sentiment_label = Column(String)
-    confidence_score = Column(Float)
+    user_id = Column(Integer, nullable=True)
+    user_text_input = Column(String, nullable=False)
+    sentiment_label = Column(String, nullable=False)
+    confidence_score = Column(Float, nullable=False)
     created_time = Column(DateTime, default=datetime.now(timezone.utc))
