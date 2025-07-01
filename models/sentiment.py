@@ -1,3 +1,8 @@
+"""
+This module defines the SQLAlchemy ORM model for storing sentiment analysis results.
+Each Sentiment instance represents a record of a user's input and the corresponding
+sentiment analysis outcome.
+"""
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime, timezone
