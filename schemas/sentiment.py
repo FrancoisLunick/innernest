@@ -14,3 +14,6 @@ class SentimentOutput(SentimentBase):
     id: int
     user_id: int
     created_time: int
+    
+    class Config:
+        orm_mode = True
