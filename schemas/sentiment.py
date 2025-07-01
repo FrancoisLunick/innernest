@@ -11,9 +11,9 @@ class SentimentCreation(SentimentBase):
     pass
 
 class SentimentOutput(SentimentBase):
-    id: int
-    user_id: int
-    created_time: datetime
+    id: int = Field(description="The unique ID of the sentiment record.")
+    user_id: int = Field(description="The ID of the user who submitted the input.")
+    created_time: datetime = Field(description="Timestamp when the sentiment was recorded.")
     
     class Config:
         orm_mode = True
