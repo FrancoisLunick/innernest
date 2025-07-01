@@ -13,7 +13,7 @@ class SentimentCreation(SentimentBase):
 class SentimentOutput(SentimentBase):
     id: int
     user_id: int
-    created_time: int
+    created_time: datetime
     
     class Config:
         orm_mode = True
