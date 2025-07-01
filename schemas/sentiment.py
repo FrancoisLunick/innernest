@@ -1,11 +1,11 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
 
 class SentimentBase(BaseModel):
-    user_input: str
-    sentiment_label: Optional[str] = None
-    confidence_score: Optional[float] = None
+    user_input: str = Field(description="The input text from the user.")
+    sentiment_label: Optional[str] = Field(None, description="The predicted sentiment label.")
+    confidence_score: Optional[float] = Field(None, description="The confidence score of the prediction")
     
 class SentimentCreation(SentimentBase):
     pass
