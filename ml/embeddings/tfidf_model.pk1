@@ -1,6 +1,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import LabelEncoder
 import joblib
 import string
 import nltk
@@ -17,7 +18,8 @@ nltk.download('stopwords')
 
 def text_preprocessing():
     
-    clean_data = []
+    clean_sentences = []
+    labels = []
     
     for (sentence, label) in data:
         
@@ -32,10 +34,17 @@ def text_preprocessing():
         
         filtered_words = [word for word in words if word not in eng_stopwords]
         
-        clean_data.append((" ".join(filtered_words), label))
+        clean_sentences.append((" ".join(filtered_words)))
+        labels.append(label)
         
         
     print(clean_data)
+    
+    return (clean_sentences, labels)
+
+def encode():
+    le = LabelEncoder()
+    encoded_labels = le.fit_transform()
         
         
 text_preprocessing()
