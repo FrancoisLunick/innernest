@@ -3,6 +3,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 import joblib
 import string
+import nltk
+from nltk.corpus import stopwords
 
 data = [
     ("I love this app", "positive"),
@@ -11,19 +13,29 @@ data = [
     ("I'm just tired", "neutral")
 ]
 
+nltk.download('stopwords')
+
 def text_preprocessing():
     
     clean_data = []
     
     for (sentence, label) in data:
+        
         sentence = sentence.lower()
         translator = str.maketrans('', '', string.punctuation)
+        
         clean_sentence = sentence.translate(translator)
-        clean_data.append((clean_sentence, label))
+        
+        words = clean_sentence.split()
+        
+        eng_stopwords = set(stopwords.words('english'))
+        
+        filtered_words = [word for word in words if word not in eng_stopwords]
+        
+        clean_data.append((" ".join(filtered_words), label))
         
         
     print(clean_data)
         
-            
         
 text_preprocessing()
