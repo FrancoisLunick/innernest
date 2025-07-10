@@ -36,15 +36,18 @@ def text_preprocessing():
         
         clean_sentences.append((" ".join(filtered_words)))
         labels.append(label)
-        
-        
-    print(clean_data)
     
     return (clean_sentences, labels)
 
 def encode():
+    
+    x, y = text_preprocessing()
+    
+    print(x)
+    print(y)
+    
     le = LabelEncoder()
-    encoded_labels = le.fit_transform()
-        
-        
-text_preprocessing()
+    encoded_labels = le.fit_transform(y)
+    
+    print(encoded_labels)
+    
