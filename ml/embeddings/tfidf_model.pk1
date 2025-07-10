@@ -1,6 +1,8 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 import joblib
+import string
 
 data = [
     ("I love this app", "positive"),
@@ -8,3 +10,18 @@ data = [
     ("Today was very peaceful", "positive"),
     ("I'm just tired", "neutral")
 ]
+
+def text_preprocessing():
+    
+    for (sentence, label) in data:
+        sentence.lower()
+        translator = str.maketrans('', '', string.punctuation)
+        clean_sentence = sentence.translate(translator)
+        
+        
+        
+        print(clean_sentence)
+        
+            
+        
+text_preprocessing()
