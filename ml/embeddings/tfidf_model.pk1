@@ -62,8 +62,4 @@ def encode_and_train():
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     
-    print(f"The accuracy of the model is: {accuracy}")
-    
-        
-        
-encode_and_train()
+    joblib.dump(model, 'sentiment_model.pk1')
