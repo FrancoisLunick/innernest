@@ -40,7 +40,7 @@ def text_preprocessing():
     
     return (clean_sentences, labels)
 
-def encode():
+def encode_and_train():
     
     X, y = text_preprocessing()
     
@@ -56,4 +56,4 @@ def encode():
     
         
         
-encode()
+encode_and_train()
