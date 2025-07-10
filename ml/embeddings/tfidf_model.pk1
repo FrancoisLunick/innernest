@@ -1,0 +1,10 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+import joblib
+
+data = [
+    ("I love this app", "positive"),
+    ("I feel so lost and overwhelmed", "negative"),
+    ("Today was very peaceful", "positive"),
+    ("I'm just tired", "neutral")
+]
