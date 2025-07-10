@@ -42,9 +42,9 @@ def text_preprocessing():
 
 def encode():
     
-    x, y = text_preprocessing()
+    X, y = text_preprocessing()
     
-    print(x)
+    print(X)
     print(y)
     
     le = LabelEncoder()
