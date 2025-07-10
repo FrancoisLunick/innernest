@@ -13,14 +13,16 @@ data = [
 
 def text_preprocessing():
     
+    clean_data = []
+    
     for (sentence, label) in data:
-        sentence.lower()
+        sentence = sentence.lower()
         translator = str.maketrans('', '', string.punctuation)
         clean_sentence = sentence.translate(translator)
+        clean_data.append((clean_sentence, label))
         
         
-        
-        print(clean_sentence)
+    print(clean_data)
         
             
         
