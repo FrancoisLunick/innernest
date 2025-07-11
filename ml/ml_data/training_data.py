@@ -1,0 +1,22 @@
+training_data = [
+    ("I love this app", "positive"),
+    ("I feel so lost and overwhelmed", "negative"),
+    ("Today was very peaceful", "positive"),
+    ("I'm just tired", "neutral"),
+    ("I hate my life so much", "negative"),
+    ("I am so happy, I just passed my test!", "joy"),
+    ("I am so scared to go outside tonight", "fear"),
+    ("I am having a pretty decent day today", "stable"),
+    ("I'm just so tired but I am okay though", "Stable"),
+    ("Today I had a vision of my father beating me", "ptsd"),
+    ("I just can't focus", "adhd"),
+    ("Life is so draining at times, I don't know if I can do this anymore", "depression"),
+    ("I love how my mom gave me a warm hug today. That really made me feel good", "positive"),
+    ("I am feeling very lonely even in a crowd", "lonely"),
+    ("My chest is tight and I can't stop shaking", "anxiety"),
+    ("Every time I close my eyes, I see the accident again", "ptsd"),
+    ("Why does everything have to be so difficult for me to understand?", "adhd"),
+    ("I felt like I was on top of the world today", "euphoria"),
+    ("I'm proud of myself for setting boundaries", "growth"),
+    ("I want to scream but nothing comes out", "frustration")
+]
