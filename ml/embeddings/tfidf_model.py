@@ -8,13 +8,10 @@ import joblib
 import string
 import nltk
 from nltk.corpus import stopwords
-
-data = [
-    ("I love this app", "positive"),
-    ("I feel so lost and overwhelmed", "negative"),
-    ("Today was very peaceful", "positive"),
-    ("I'm just tired", "neutral")
-]
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from ml.ml_data.training_data import training_data
 
 nltk.download('stopwords')
 
@@ -23,7 +20,7 @@ def text_preprocessing():
     clean_sentences = []
     labels = []
     
-    for (sentence, label) in data:
+    for (sentence, label) in training_data:
         
         sentence = sentence.lower()
         translator = str.maketrans('', '', string.punctuation)
@@ -62,4 +59,8 @@ def encode_and_train():
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     
+    print(f"accuracy {accuracy}")
+    
     joblib.dump(model, 'sentiment_model.pk1')
+    
+encode_and_train()
