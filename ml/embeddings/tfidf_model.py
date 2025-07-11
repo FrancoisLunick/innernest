@@ -1,9 +1,10 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.multioutput import MultiOutputClassifier
 import joblib
 import string
 import nltk
@@ -45,14 +46,14 @@ def encode_and_train():
     print(X)
     print(y)
     
-    le = LabelEncoder()
-    encoded_labels = le.fit_transform(y)
+    mlb = MultiLabelBinarizer()
+    encode_labels = mlb.fit_transform(y)
     
     X_train, X_test, y_train, y_test = train_test_split(X, encoded_labels, test_size=0.2, random_state=42)
     
     model = Pipeline([
         ('tfidf', TfidfVectorizer()),
-        ('clf', LogisticRegression())
+        ('clf', MultiOutputClassifier(LogisticRegression()))
     ])
     model.fit(X_train, y_train)
     
