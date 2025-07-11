@@ -1,9 +1,12 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
+from sklearn.multioutput import MultiOutputClassifier
+from skmultilearn.model_selection import iterative_train_test_split
+import numpy
 import joblib
 import string
 import nltk
@@ -45,21 +48,27 @@ def encode_and_train():
     print(X)
     print(y)
     
-    le = LabelEncoder()
-    encoded_labels = le.fit_transform(y)
+    mlb = MultiLabelBinarizer()
+    encoded_labels = mlb.fit_transform(y)
     
-    X_train, X_test, y_train, y_test = train_test_split(X, encoded_labels, test_size=0.2, random_state=42)
+    X_numpy = numpy.array(X).reshape(-1, 1)
+    y_numpy = numpy.array(encoded_labels)
+    
+    X_train, y_train, X_test, y_test = iterative_train_test_split(X_numpy, y_numpy, test_size=0.2)
+    
+    X_train = X_train.ravel()
+    X_test = X_test.ravel()
     
     model = Pipeline([
         ('tfidf', TfidfVectorizer()),
-        ('clf', LogisticRegression())
+        ('clf', MultiOutputClassifier(LogisticRegression()))
     ])
     model.fit(X_train, y_train)
     
     y_pred = model.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
+    c_report = classification_report(y_test, y_pred, target_names=mlb.classes_)
     
-    print(f"accuracy {accuracy}")
+    print(c_report)
     
     joblib.dump(model, 'sentiment_model.pk1')
     
