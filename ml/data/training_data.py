@@ -1,0 +1,13 @@
+training_data = [
+    ("I love this app", "positive"),
+    ("I feel so lost and overwhelmed", "negative"),
+    ("Today was very peaceful", "positive"),
+    ("I'm just tired", "neutral"),
+    ("I hate my life so much", "negative"),
+    ("I am so happy, I just passed my test!", "joy"),
+    ("I am so scared to go outside tonight", "fear"),
+    ("I am having a pretty decent day today", "stable"),
+    ("I'm just so tired but I am okay though", "Stable"),
+    ("Today I had a vision of my father beating me", "ptsd"),
+    ("I just can't focus", "adhd")
+]
