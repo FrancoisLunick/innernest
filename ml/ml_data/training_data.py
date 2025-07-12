@@ -1,3 +1,7 @@
+"""
+The module defines the core training dataset used for multi-label sentiment and mental health classification.
+"""
+
 training_data = [
     ("I love this app", ["positive", "joy"]),
     ("I feel so lost and overwhelmed", ["negative", "anxiety"]),
