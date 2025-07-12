@@ -1,3 +1,9 @@
+"""
+This script trains a multi-label text classification model using TF-IDF and Logistic Regression.
+
+The way it does that is by preprocessing journal style text data, vectorizes it, and trains a classifier
+to predict multiple mental health related sentiment labels.
+"""
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
@@ -19,6 +25,12 @@ from ml.ml_data.training_data import training_data
 nltk.download('stopwords')
 
 def text_preprocessing():
+    """
+    Cleans and preprocesses text data from the training set.
+
+    Returns:
+        tuple: A tuple containing the cleaned list of sentences and their corresponding label lists.
+    """
     
     clean_sentences = []
     labels = []
@@ -42,6 +54,10 @@ def text_preprocessing():
     return (clean_sentences, labels)
 
 def encode_and_train():
+    
+    """
+    Encodes labels, splits the dataset and trains a TF-IDF + Logistic Regression model, and saves the trained model to disk.
+    """
     
     X, y = text_preprocessing()
     
