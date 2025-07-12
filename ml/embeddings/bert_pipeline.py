@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from ml.ml_data.training_data import training_data
+import torch
 
 bert_tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
@@ -21,3 +22,12 @@ def preprocess_data(data, tokenizer):
     encoding = bert_tokenizer(texts, paddings=True, truncation=True, return_tensors='pt', max_length=512)
     
     return encoding, labels
+
+class JournalDataset(torch.utils.data.Dataset):
+    def __init__(self) -> None:
+        super().__init__()
+        
+    def __len__():
+    
+    def __getitem__(self, index) -> Any:
+        return super().__getitem__(index)
