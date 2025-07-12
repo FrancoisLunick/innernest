@@ -13,3 +13,11 @@ def load_data():
     print([(texts, labels)])
     
     return (texts, labels)
+
+def preprocess_data(data, tokenizer):
+    
+    texts, labels = load_data()
+    
+    encoding = bert_tokenizer(texts, paddings=True, truncation=True, return_tensors='pt', max_length=512)
+    
+    return encoding, labels
