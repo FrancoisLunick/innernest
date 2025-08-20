@@ -78,3 +78,43 @@ def train_model(model, dataloader, optimizer, criterion, device):
         total_loss += loss.item()
         
         return total_loss / len(dataloader)
+    
+def evaluate(model, dataloader, criterion, device):
+    model.eval()
+    total_loss = 0
+    all_labels = []
+    all_preds = []
+    
+    with torch.no_grad():
+        for batch in dataloader:
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
+            labels = batch['labels'].to(device)
+            
+            outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+            loss = criterion(outputs, labels.float())
+            total_loss += loss.item()
+            
+            preds = torch.sigmoid(outputs) > 0.5
+            all_labels.append(labels.cpu())
+            all_preds.append(preds.cpu())
+            
+    avg_loss = total_loss / len(dataloader)
+    y_true = torch.cat(all_labels).numpy()
+    y_pred = torch.cat(all_preds).numpy()
+    
+    
+    ham_loss = hamming_loss(y_true, y_pred)
+    f1_micro = f1_score(y_true, y_pred, average='micro')
+    f1_macro = f1_score(y_true, y_pred, average='macro')
+    precision = precision_score(y_true, y_pred, average='micro')
+    recall = recall_score(y_true, y_pred, average='micro')
+
+    print(f"Loss: {avg_loss:.4f}")
+    print(f"Hamming Loss: {ham_loss:.4f}")
+    print(f"F1 Score (Micro): {f1_micro:.4f}")
+    print(f"F1 Score (Macro): {f1_macro:.4f}")
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall: {recall:.4f}")
+    
+    return avg_loss
