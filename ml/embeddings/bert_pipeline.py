@@ -49,3 +49,11 @@ class BERTClassifier(torch.nn.Module):
         self.bert = bert
         self.dropout = torch.nn.Dropout(dropout_prob)
         self.classifier = torch.nn.Linear(bert.config.hidden_size, num_labels)
+    
+    def forward(self, input_ids, attention_mask):
+        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        pooled_output = outputs.pooler_output
+        x = self.dropout(pooled_output)
+        logits = self.classifier(x)
+        
+        return logits
