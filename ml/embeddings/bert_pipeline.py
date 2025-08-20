@@ -118,3 +118,17 @@ def evaluate(model, dataloader, criterion, device):
     print(f"Recall: {recall:.4f}")
     
     return avg_loss
+
+def save_model(model, tokenizer, output_dir = "saved_model"):
+    
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        
+    model_path = os.path.join(output_dir, "pytorch_model.bin")
+    tokenizer_path = os.path.join(output_dir, "tokenizer")
+    
+    torch.save(model.state_dict(), model_path)
+    tokenizer.save_pretrained(tokenizer_path)
+    
+    print(f"Model Saved to {model_path}")
+    print(f"Tokenizer saved to {tokenizer_path}")
