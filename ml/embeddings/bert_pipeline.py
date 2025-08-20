@@ -41,3 +41,11 @@ class JournalDataset(torch.utils.data.Dataset):
              "attention_mask": encoding["attention_mask"].squeeze(0),
              "labels": label
         }
+    
+class BERTClassifier(torch.nn.Module):
+    def __init__(self, bert, num_labels, dropout_prob = 0.3) -> None:
+        super(BERTClassifier, self).__init__()
+        
+        self.bert = bert
+        self.dropout = torch.nn.Dropout(dropout_prob)
+        self.classifier = torch.nn.Linear(bert.config.hidden_size, num_labels)
