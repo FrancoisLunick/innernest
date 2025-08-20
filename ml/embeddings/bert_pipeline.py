@@ -184,8 +184,8 @@ def evaluate(model, dataloader, criterion, device):
             loss = criterion(outputs, labels.float())
             total_loss += loss.item()
             
-            # Apply sigmoid and threshold at 0.5 for multilabel predictions
-            preds = torch.sigmoid(outputs) > 0.5
+            # Apply sigmoid and threshold at 0.3 for multilabel predictions
+            preds = torch.sigmoid(outputs) > 0.3
             all_labels.append(labels.cpu())
             all_preds.append(preds.cpu())
             
