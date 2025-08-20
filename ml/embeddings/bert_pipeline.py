@@ -26,3 +26,5 @@ class JournalDataset(torch.utils.data.Dataset):
         self.labels = labels
         self.max_len = max_len
     
+    def __len__(self):
+        return len(self.texts)
