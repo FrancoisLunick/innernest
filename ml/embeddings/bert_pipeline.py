@@ -159,3 +159,6 @@ def main():
     save_model(model, bert_tokenizer)
 
     joblib.dump(mlb, os.path.join("saved_model", "label_binarizer.pkl"))
+
+if __name__ == "__main__":
+    main()
