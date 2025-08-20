@@ -28,3 +28,16 @@ class JournalDataset(torch.utils.data.Dataset):
     
     def __len__(self):
         return len(self.texts)
+    
+    def __getitem__(self, index) -> any:
+        
+        text = self.texts[index]
+        label = torch.tensor(self.labels[index], dtype=torch.float)
+        
+        encoding = self.tokenizer(text, padding = "max_length", truncation = True, max_length = self.max_len, return_tensors = "pt")
+        
+        return {
+             "input_ids": encoding["input_ids"].squeeze(0),
+             "attention_mask": encoding["attention_mask"].squeeze(0),
+             "labels": label
+        }
