@@ -18,4 +18,11 @@ def load_data():
     # print([(texts, labels)])
     
     return (texts, labels)
+
+class JournalDataset(torch.utils.data.Dataset):
+    def __init__(self, texts, labels, tokenizer, max_len = 512) -> None:
+        self.tokenizer = tokenizer
+        self.texts = texts
+        self.labels = labels
+        self.max_len = max_len
     
