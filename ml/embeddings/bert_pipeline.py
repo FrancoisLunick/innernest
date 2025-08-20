@@ -10,3 +10,12 @@ import joblib
 from sklearn.metrics import hamming_loss, f1_score, precision_score, recall_score
 
 bert_tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+
+def load_data():
+    texts = [entry[0] for entry in training_data]
+    labels = [entry[1] for entry in training_data]
+    
+    # print([(texts, labels)])
+    
+    return (texts, labels)
+    
