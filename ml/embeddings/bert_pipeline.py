@@ -132,3 +132,30 @@ def save_model(model, tokenizer, output_dir = "saved_model"):
     
     print(f"Model Saved to {model_path}")
     print(f"Tokenizer saved to {tokenizer_path}")
+
+def main():
+    
+    texts, raw_labels = load_data()
+
+    mlb = MultiLabelBinarizer()
+    labels = mlb.fit_transform(raw_labels)
+
+    dataset = JournalDataset(texts, labels, bert_tokenizer)
+    dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    bert = BertModel.from_pretrained("bert-base-uncased")
+    model = BERTClassifier(bert, num_labels=len(mlb.classes_)).to(device)
+
+    optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5)
+    criterion = torch.nn.BCEWithLogitsLoss()
+
+    for epoch in range(3):
+        loss = train_model(model, dataloader, optimizer, criterion, device)
+        print(f"Epoch {epoch+1}, Loss: {loss:.4f}")
+    
+    evaluate(model, dataloader, criterion, device)
+
+    save_model(model, bert_tokenizer)
+
+    joblib.dump(mlb, os.path.join("saved_model", "label_binarizer.pkl"))
