@@ -17,3 +17,8 @@ class JournalEntry:
     tags = Column(String(255), nullable=True)
     created_at = Column(DateTime, default=datetime.now)
     created_by = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    
+    user = relationship("User", back_populates="journal_entries")
+    
+    def __repr__(self) -> str:
+        return f"<JournalEntry id={self.id} user_id={self.user_id} mood={self.mood}>"
