@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from db.database import Base
+from models.user import User
 
-class JournalEntry(Base):
+class JournalEntry:
     """
     JournalEntry model is for storing user written journal entries.
     """
@@ -11,16 +11,13 @@ class JournalEntry(Base):
     __tablename__ = "journal_entries"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
-    
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     title = Column(String(255), nullable=True)
     content = Column(Text, nullable=False)
-    
     mood = Column(String(50), nullable=True)
     tags = Column(String(255), nullable=True)
-    
     created_at = Column(DateTime, default=datetime.now)
-    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    created_by = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
     user = relationship("User", back_populates="journal_entries")
     
