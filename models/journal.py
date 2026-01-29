@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Session
 from datetime import datetime
+from ml.embeddings.bert_pipeline import main
 
 class JournalEntry:
     """
