@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
-from sqlalchemy.orm import relationship, Session
+from sqlalchemy.orm import relationship
 from datetime import datetime
-from ml.embeddings.bert_pipeline import main
+from db.database import Base
 
-class JournalEntry:
+class JournalEntry(Base):
     """
     JournalEntry model is for storing user written journal entries.
     """
@@ -12,12 +12,15 @@ class JournalEntry:
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    
     title = Column(String(255), nullable=True)
     content = Column(Text, nullable=False)
+    
     mood = Column(String(50), nullable=True)
     tags = Column(String(255), nullable=True)
+    
     created_at = Column(DateTime, default=datetime.now)
-    created_by = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
     user = relationship("User", back_populates="journal_entries")
     
