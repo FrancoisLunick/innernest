@@ -30,3 +30,14 @@ class UserPublic(BaseModel):
     class Config:
         orm_mode = True
 
+class UserLogin(BaseModel):
+    """
+    Schema used when a user attempts to log in.
+
+    'identifier' allows flexibility (email or username),
+    while keeping the schema minimal and explicit.
+    """
+    
+    identifier: str     # Email or username
+    password: str       # plain password (verified in the service layer)
+
