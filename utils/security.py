@@ -24,3 +24,18 @@ def hash_password(password: str) -> str:
     """
     
     return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    
+    """
+    Verify a plain text password against a stored hash.
+    """
+    
+    return pwd_context.verify(plain_password, hashed_password)
+    
+JWT_SECRET: str = os.getenv("JWT_SECRET_KEY", "dev-only-change-me")
+JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+    
+JWT_ISSUER: Optional[str] = os.getenv("JWT_ISSUER")
+JWT_AUDIENCE: Optional[str] = os.getenv("JWT_AUDIENCE")
