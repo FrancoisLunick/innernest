@@ -39,3 +39,22 @@ ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 
     
 JWT_ISSUER: Optional[str] = os.getenv("JWT_ISSUER")
 JWT_AUDIENCE: Optional[str] = os.getenv("JWT_AUDIENCE")
+    
+
+def create_access_token(data: Dict[str, Any]) -> str:
+    """
+    Create a signed JWT
+
+    Args:
+        data (Dict[str, Any]): Claims to embed in the token. Common claim is "sub" for user id.
+
+    Returns:
+        str: Encoded JWT string.
+    """
+    
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    
+    return jwt.encode(to_encode, JWT_SECRET, algorithm = JWT_ALGORITHM)
+    
