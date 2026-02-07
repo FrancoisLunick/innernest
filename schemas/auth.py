@@ -16,3 +16,17 @@ class UserCreate(BaseModel):
     password: str       # Plain password (will be hashed later)
     username: str       # Public facing username
  
+class UserPublic(BaseModel):
+    """
+    Schema used when returning a user object to the client.
+
+    This schema is intentionally limited to non-sensitive fields.
+    It is safe to expose publicly and is often used as a response_model.
+    """
+    
+    id: int
+    email: EmailStr
+    
+    class Config:
+        orm_mode = True
+
