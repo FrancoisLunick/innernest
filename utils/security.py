@@ -93,11 +93,15 @@ def decode_and_verify_token(token: str, *, issuer: Optional[str] = None, audienc
     if audience:
         decode_kwargs["audience"] = audience
     
-    
-    return jwt.decode(
-        token,
-        JWT_SECRET,
-        algorithms = [JWT_ALGORITHM],
-        **decode_kwargs
+    try:
+        return jwt.decode(
+            token,
+            JWT_SECRET,
+            algorithms = [JWT_ALGORITHM],
+            **decode_kwargs
         )
+    except ExpiredSignatureError as e:
+        raise ValueError("Token expired") from e
+    except JOSEError as e:
+        raise ValueError("Invalid token") from e
 
