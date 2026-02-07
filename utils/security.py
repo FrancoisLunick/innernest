@@ -58,3 +58,35 @@ def create_access_token(data: Dict[str, Any]) -> str:
     
     return jwt.encode(to_encode, JWT_SECRET, algorithm = JWT_ALGORITHM)
     
+
+def decode_and_verify_token(token: str, *, issuer: Optional[str] = None, audience: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Decode and validate a JWT
+
+    Args:
+        token (str): Raw JWT string
+        issuer (Optional[str], optional): Expected issuer claim ("iss"). If None, falls back to JWT_ISSUER.
+        audience (Optional[str], optional): Expected audience claim ("aud"). If None, falls back to JWT_AUDIENCE.
+
+    Returns:
+        Dict[str, Any]: Decoded JWT payload (claims).
+    """
+    
+    issuer = issuer if issuer is not None else JWT_ISSUER
+    audience = audience if audience is not None else JWT_AUDIENCE
+    
+    decode_kwargs: Dict[str, Any] = {}
+    
+    if issuer:
+        decode_kwargs["issuer"] = issuer
+    if audience:
+        decode_kwargs["audience"] = audience
+    
+    
+    return jwt.decode(
+        token,
+        JWT_SECRET,
+        algorithms = [JWT_ALGORITHM],
+        **decode_kwargs
+        )
+
