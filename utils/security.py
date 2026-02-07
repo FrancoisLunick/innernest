@@ -7,6 +7,7 @@ from __future__ import annotations
 import os
 from passlib.context import CryptContext
 from jose import jwt
+from jose.exceptions import ExpiredSignatureError, JOSEError
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
