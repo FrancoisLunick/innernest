@@ -54,8 +54,18 @@ def create_access_token(data: Dict[str, Any]) -> str:
     """
     
     to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
+    
+    now = datetime.now(timezone.utc)
+    expire = now + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
+    
+    # Standard registered claims
+    to_encode.update({"exp": expire, "iat": now})
+    
+    # Optional hardening: issuer / audience if configured
+    if JWT_ISSUER:
+        to_encode.setdefault("iss", JWT_ISSUER)
+    if JWT_AUDIENCE:
+        to_encode.setdefault("aud", JWT_AUDIENCE)
     
     return jwt.encode(to_encode, JWT_SECRET, algorithm = JWT_ALGORITHM)
     
