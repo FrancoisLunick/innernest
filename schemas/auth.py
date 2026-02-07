@@ -41,3 +41,13 @@ class UserLogin(BaseModel):
     identifier: str     # Email or username
     password: str       # plain password (verified in the service layer)
 
+class TokenOut(BaseModel):
+    """
+    Schema returned after successful authentication.
+
+    This follows standard JWT response conventions and
+    allows easy frontend integration
+    """
+    
+    access_token: str
+    token_type: str = "bearer"
