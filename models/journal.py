@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from models.user import User
+from db.database import Base
+from models.user import User  # Ensure model is registered for relationship resolution.
 
-class JournalEntry:
+class JournalEntry(Base):
     """
     JournalEntry model is for storing user written journal entries.
     """
@@ -19,7 +20,7 @@ class JournalEntry:
     created_at = Column(DateTime, default=datetime.now)
     created_by = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
-    user = relationship("User", back_populates="journal_entries")
+    user = relationship("User", back_populates="journals")
     
     def __repr__(self) -> str:
         return f"<JournalEntry id={self.id} user_id={self.user_id} mood={self.mood}>"

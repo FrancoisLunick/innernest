@@ -183,3 +183,7 @@ sentiment_model.pk1
 
 # Trained models and tokenizer
 saved_model/
+
+# Local test artifacts
+innernest.db
+scripts/test_journal_service.py
